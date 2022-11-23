@@ -117,7 +117,10 @@ jobs:
         shell: Rscript {0}
 
       - name: build binary
-        run: devtools::build(binary = TRUE, args = c('--preclean'))
+        run: |
+          fn = devtools::build(binary = TRUE, args = c('--preclean'))
+          newfn = paste0(substr(fn,1,regexpr("_",fn)),"_",R.version$platform,".",tools::file_ext(fn))
+          file.rename(fn,newfn)
         shell: Rscript {0}
 
       - name: Release
