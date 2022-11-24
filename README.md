@@ -38,17 +38,14 @@ from R and the reverse.
 # install rpolars
 
  - Macbbook x86_64
- `install.packages("rlang");`
- `install.packages(repos=NULL,"https://github.com/sorhawell/rpolars/releases/download/v0.1.9003.7/rpolars_0.1.9003.tgz")`
+ `install.packages(repos=NULL,"https://github.com/rpolars/rpolars/releases/latest/download/rpolars__x86_64-apple-darwin17.0.tgz")`
  
  - Linux x86_64
- `install.packages("rlang");`
- `install.packages(repos=NULL,"https://github.com/sorhawell/rpolars/releases/download/v0.1.9003.7/rpolars_0.1.9003_R_x86_64-pc-linux-gnu.tar.gz")`
+ `install.packages(repos=NULL,"https://github.com/rpolars/rpolars/releases/latest/download/rpolars__x86_64-pc-linux-gnu.gz")`
  
  - Windows
- `install.packages("rlang");`
- `install.packages(repos=NULL,"https://github.com/sorhawell/rpolars/releases/download/v0.1.9003.7/rpolars_0.1.9003.zip")`
- 
+ `install.packages(repos=NULL,"https://github.com/sorhawell/rpolars/releases/download/rpolars__x86_64-w64-mingw32.zip")`
+
  - Other targets?  Raise an issue
  
  
