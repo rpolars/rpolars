@@ -17,6 +17,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
+    if: github.event.pull_request.merged == false
     runs-on: ${{ matrix.config.os }}
     name: ${{ matrix.config.os }} (R-${{ matrix.config.r }} rust-${{ matrix.config.rust-version }})
 
