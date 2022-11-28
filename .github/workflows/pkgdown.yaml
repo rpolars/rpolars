@@ -140,7 +140,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') && github.event_name != 'pull_request'
         with:
           #tag_name: ${{ github.run_number }}
-          tag_name: ${{github.event.number}}
+          tag_name: Release-${{github.event.number}}
           files: |
             ../rpolars_*
             ../rpolars.zip
@@ -151,8 +151,8 @@ jobs:
         with:
           body: "Ignore me: I'm just a pre-release."
           prerelease: true
-          tag_name: ${{github.event.number}}
-          #target_commitish:
+          tag_name: Pull-Request-${{github.event.number}}
+          target_commitish: ""
           files: |
             ../rpolars_*
             ../rpolars.zip
