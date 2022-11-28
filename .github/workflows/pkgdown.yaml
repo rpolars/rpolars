@@ -128,7 +128,7 @@ jobs:
             newfn = paste0(substr(fn,1,regexpr("_",fn)),"_",R.version$platform,".",tools::file_ext(fn))
             file.rename(fn,newfn)
           } else {
-            file.rename(fn,"rpolars.zip") #R expects specific windows binary filename
+            file.rename(fn,"../rpolars.zip") #R expects specific windows binary filename
           }
         shell: Rscript {0}
 
