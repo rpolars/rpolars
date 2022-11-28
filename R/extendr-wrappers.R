@@ -430,6 +430,10 @@ Series$new <- function(x, name) .Call(wrap__Series__new, x, name)
 
 Series$clone <- function() .Call(wrap__Series__clone, self)
 
+Series$sleep <- function(millis) .Call(wrap__Series__sleep, self, millis)
+
+Series$panic <- function() .Call(wrap__Series__panic, self)
+
 Series$to_r <- function() .Call(wrap__Series__to_r, self)
 
 Series$rename_mut <- function(name) invisible(.Call(wrap__Series__rename_mut, self, name))
