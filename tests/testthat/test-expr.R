@@ -2201,3 +2201,36 @@ test_that("entropy", {
 
 
 
+test_that("cumulative_eval", {
+
+  r_cumulative_eval = function(x,f,min_periods = 1L, ...) {
+    g = function(x) if(length(x)<min_periods) x[length(x)+1L] else f(x)
+    sapply(lapply(seq_along(x) ,\(i) x[1:i]),g)
+  }
+
+  expect_identical(
+    pl$lit(1:5)$cumulative_eval(pl$element()$first()-pl$element()$last() ** 2)$to_r(),
+    r_cumulative_eval(x, \(x) first(x)-last(x)**2)
+  )
+
+  expect_identical(
+    pl$lit(1:5)$cumulative_eval(
+      pl$element()$first()-pl$element()$last() ** 2,
+      min_periods=4
+    )$to_r(),
+    r_cumulative_eval(x, \(x) first(x)-last(x)**2, min_periods = 4)
+  )
+
+  expect_identical(
+    pl$lit(1:5)$cumulative_eval(
+      pl$element()$first()-pl$element()$last() ** 2,
+      min_periods=3,
+      parallel = TRUE
+    )$to_r(),
+    r_cumulative_eval(x, \(x) first(x)-last(x)**2, min_periods = 3)
+  )
+
+})
+
+
+

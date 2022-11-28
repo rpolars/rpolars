@@ -937,6 +937,17 @@ impl Expr {
         self.0.clone().entropy(base, normalize).into()
     }
 
+    fn cumulative_eval(&self, expr: &Expr, min_periods: f64, parallel: bool) -> List {
+        use pl::*;
+        r_result_list(try_f64_into_usize(min_periods, false).map(|min_p| {
+            Expr(
+                self.0
+                    .clone()
+                    .cumulative_eval(expr.0.clone(), min_p, parallel),
+            )
+        }))
+    }
+
     pub fn pow(&self, exponent: &Expr) -> Self {
         self.0.clone().pow(exponent.0.clone()).into()
     }

@@ -3707,6 +3707,8 @@ Expr_log  = function(base = base::exp(1)) {
 Expr_log10  = "use_extendr_wrapper"
 
 
+
+
 #' Entropy
 #' @description  Computes the entropy.
 #' Uses the formula `-sum(pk * log(pk))` where `pk` are discrete probabilities.
@@ -3720,4 +3722,28 @@ Expr_log10  = "use_extendr_wrapper"
 #' pl$select(pl$lit(c("a","b","b","c","c","c"))$unique_counts()$entropy(base=2))
 Expr_entropy  = function(base = base::exp(1), normalize = TRUE) {
   .pr$Expr$entropy(self, base, normalize)
+}
+
+
+#' @description  Run an expression over a sliding window that increases `1` slot every iteration.
+#' @param expr Expression to evaluate
+#' @param min_periods Number of valid values there should be in the window before the expression
+#' is evaluated. valid values = `length - null_count`
+#' @param parallel Run in parallel. Don't do this in a groupby or another operation that
+#' already has much parallelization.
+#' @details
+#'
+#' Warnings
+#' --------
+#'   This functionality is experimental and may change without it being considered a
+#' breaking change.
+#' This can be really slow as it can have `O(n^2)` complexity. Don't use this
+#'         for operations that visit all elements.
+#' @keywords Expr
+#' @return Expr
+#' @aliases cumulative_eval
+#' @examples
+#' pl$lit(1:5)$cumulative_eval(pl$element()$first()-pl$element()$last() ** 2)$to_r()
+Expr_cumulative_eval = function(expr, min_periods = 1L, parallel = FALSE) {
+  unwrap(.pr$Expr$cumulative_eval(self,expr, min_periods, parallel))
 }

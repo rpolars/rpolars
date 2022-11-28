@@ -296,6 +296,8 @@ Expr$unique_counts <- function() .Call(wrap__Expr__unique_counts, self)
 
 Expr$entropy <- function(base, normalize) .Call(wrap__Expr__entropy, self, base, normalize)
 
+Expr$cumulative_eval <- function(expr, min_periods, parallel) .Call(wrap__Expr__cumulative_eval, self, expr, min_periods, parallel)
+
 Expr$pow <- function(exponent) .Call(wrap__Expr__pow, self, exponent)
 
 Expr$repeat_by <- function(by) .Call(wrap__Expr__repeat_by, self, by)
