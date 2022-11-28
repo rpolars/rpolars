@@ -2210,7 +2210,7 @@ test_that("cumulative_eval", {
 
   expect_identical(
     pl$lit(1:5)$cumulative_eval(pl$element()$first()-pl$element()$last() ** 2)$to_r(),
-    r_cumulative_eval(x, \(x) first(x)-last(x)**2)
+    r_cumulative_eval(1:5, \(x) first(x)-last(x)**2)
   )
 
   expect_identical(
@@ -2218,7 +2218,7 @@ test_that("cumulative_eval", {
       pl$element()$first()-pl$element()$last() ** 2,
       min_periods=4
     )$to_r(),
-    r_cumulative_eval(x, \(x) first(x)-last(x)**2, min_periods = 4)
+    r_cumulative_eval(1:5, \(x) first(x)-last(x)**2, min_periods = 4)
   )
 
   expect_identical(
@@ -2227,7 +2227,7 @@ test_that("cumulative_eval", {
       min_periods=3,
       parallel = TRUE
     )$to_r(),
-    r_cumulative_eval(x, \(x) first(x)-last(x)**2, min_periods = 3)
+    r_cumulative_eval(1:5, \(x) first(x)-last(x)**2, min_periods = 3)
   )
 
 })
