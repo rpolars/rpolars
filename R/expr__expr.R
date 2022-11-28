@@ -3674,7 +3674,7 @@ pl$expr_to_r = function(expr, df = NULL, i=0) {
 #' Value counts
 #' @description
 #' Count all unique values and create a struct mapping value to count.
-#' @return  R object
+#' @return Expr
 #' @param    multithreaded:
 #' Better to turn this off in the aggregation context, as it can lead to contention.
 #' @param sort:
@@ -3689,4 +3689,18 @@ pl$expr_to_r = function(expr, df = NULL, i=0) {
 Expr_value_counts = function(multithreaded = FALSE, sort = FALSE) {
   .pr$Expr$value_counts(self, multithreaded, sort)
 }
+
+
+#' Value counts
+#' @description
+#' Return a count of the unique values in the order of appearance.
+#' This method differs from `value_counts` in that it does not return the
+#' values, only the counts and might be faster
+#' @return  Expr
+#' @aliases unique_counts
+#' @format Method
+#' @keywords Expr
+#' @examples
+#' pl$DataFrame(iris)$select(pl$col("Species")$unique_counts())
+Expr_unique_counts = "use_extendr_wrapper"
 

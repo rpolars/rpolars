@@ -2153,3 +2153,28 @@ test_that("to_r", {
 
 })
 
+
+
+test_that("unique_counts", {
+
+  #test cases for value counts
+  l = list(
+    1,1:2,Inf,-Inf,NaN,"a",c(letters,LETTERS,letters),
+    numeric(),integer(), NA_integer_, NA_character_, NA_real_,
+    c(NA_real_,24,NaN),c(NA_real_,24,Inf,NaN,24), c("ejw",NA_character_),
+    c(1,1,1,2,3,4,1,5,2,NA_real_,NA_real_)
+  )
+
+  #mimic value counts with R funcitons
+  r_value_counts = function(x) {
+    as.numeric(sapply(unique(x),\(y) sum(sapply(x,identical,y))))
+  }
+
+  for(i in l) {
+    expect_identical(
+      pl$lit(i)$unique_counts()$to_r(),
+      r_value_counts(i)
+    )
+  }
+})
+

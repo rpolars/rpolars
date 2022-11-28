@@ -925,15 +925,19 @@ impl Expr {
         }
     }
 
-    pub fn value_counts(&self, multithreaded: bool, sorted: bool) -> Expr {
+    pub fn value_counts(&self, multithreaded: bool, sorted: bool) -> Self {
         self.0.clone().value_counts(multithreaded, sorted).into()
+    }
+
+    pub fn unique_counts(&self) -> Self {
+        self.0.clone().unique_counts().into()
     }
 
     pub fn pow(&self, exponent: &Expr) -> Self {
         self.0.clone().pow(exponent.0.clone()).into()
     }
 
-    pub fn repeat_by(&self, by: &Expr) -> Expr {
+    pub fn repeat_by(&self, by: &Expr) -> Self {
         self.clone().0.repeat_by(by.0.clone()).into()
     }
 

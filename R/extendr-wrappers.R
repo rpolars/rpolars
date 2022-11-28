@@ -292,6 +292,8 @@ Expr$rep <- function(n, rechunk) .Call(wrap__Expr__rep, self, n, rechunk)
 
 Expr$value_counts <- function(multithreaded, sorted) .Call(wrap__Expr__value_counts, self, multithreaded, sorted)
 
+Expr$unique_counts <- function() .Call(wrap__Expr__unique_counts, self)
+
 Expr$pow <- function(exponent) .Call(wrap__Expr__pow, self, exponent)
 
 Expr$repeat_by <- function(by) .Call(wrap__Expr__repeat_by, self, by)
