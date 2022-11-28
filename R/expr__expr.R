@@ -893,8 +893,8 @@ Expr_map_alias = function(fun) {
     # then handle_thread_r_requests should be rewritten to handle any type.
     message("map_alias function is experimentally without some thread-safeguards, please report any crashes") #TODO resolve
   }
-  if(!is.function(fun)) pstop(err="alias_map fun must be a function", class="not_fun")
-  if(length(formals(fun))==0) pstop(err="alias_map fun must take at least one parameter", class="not_one_arg")
+  if(!is.function(fun)) pstop(err="alias_map fun must be a function")
+  if(length(formals(fun))==0) pstop(err="alias_map fun must take at least one parameter")
   .pr$Expr$map_alias(self,fun)
 }
 
