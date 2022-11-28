@@ -770,28 +770,7 @@ Expr_sqrt = function() {
 }
 
 
-#' Natural Log
-#' @description  Compute the base x logarithm of the input array, element-wise.
-#' @keywords Expr
-#' @return Expr
-#' @aliases log
-#' @name Expr_log
-#' @examples
-#' pl$DataFrame(list(a = exp(1)^(-1:3)))$select(pl$col("a")$log())
-Expr_log  = function(base = base::exp(1)) {
-  .pr$Expr$log(self, base)
-}
 
-#' 10-base log
-#' @description Compute the base 10 logarithm of the input array, element-wise.
-#' @keywords Expr
-#' @return Expr
-#' @aliases log10
-#' @name Expr_log10
-#' @format a method
-#' @examples
-#' pl$DataFrame(list(a = 10^(-1:3)))$select(pl$col("a")$log10())
-Expr_log10  = "use_extendr_wrapper"
 
 
 #' Compute the exponential, element-wise.
@@ -3704,3 +3683,41 @@ Expr_value_counts = function(multithreaded = FALSE, sort = FALSE) {
 #' pl$DataFrame(iris)$select(pl$col("Species")$unique_counts())
 Expr_unique_counts = "use_extendr_wrapper"
 
+#' Natural Log
+#' @description  Compute the base x logarithm of the input array, element-wise.
+#' @keywords Expr
+#' @return Expr
+#' @aliases log
+#' @name Expr_log
+#' @examples
+#' pl$DataFrame(list(a = exp(1)^(-1:3)))$select(pl$col("a")$log())
+Expr_log  = function(base = base::exp(1)) {
+  .pr$Expr$log(self, base)
+}
+
+#' 10-base log
+#' @description Compute the base 10 logarithm of the input array, element-wise.
+#' @keywords Expr
+#' @return Expr
+#' @aliases log10
+#' @name Expr_log10
+#' @format a method
+#' @examples
+#' pl$DataFrame(list(a = 10^(-1:3)))$select(pl$col("a")$log10())
+Expr_log10  = "use_extendr_wrapper"
+
+
+#' Entropy
+#' @description  Computes the entropy.
+#' Uses the formula `-sum(pk * log(pk))` where `pk` are discrete probabilities.
+#' Return Null if input is not values
+#' @param base  Given exponential base, defaults to `e`
+#' @param normalize Normalize pk if it doesn't sum to 1.
+#' @keywords Expr
+#' @return Expr
+#' @aliases entropy
+#' @examples
+#' pl$select(pl$lit(c("a","b","b","c","c","c"))$unique_counts()$entropy(base=2))
+Expr_entropy  = function(base = base::exp(1), normalize = TRUE) {
+  .pr$Expr$entropy(self, base, normalize)
+}

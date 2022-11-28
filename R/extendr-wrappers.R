@@ -294,6 +294,8 @@ Expr$value_counts <- function(multithreaded, sorted) .Call(wrap__Expr__value_cou
 
 Expr$unique_counts <- function() .Call(wrap__Expr__unique_counts, self)
 
+Expr$entropy <- function(base, normalize) .Call(wrap__Expr__entropy, self, base, normalize)
+
 Expr$pow <- function(exponent) .Call(wrap__Expr__pow, self, exponent)
 
 Expr$repeat_by <- function(by) .Call(wrap__Expr__repeat_by, self, by)

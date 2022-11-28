@@ -2178,3 +2178,26 @@ test_that("unique_counts", {
   }
 })
 
+
+test_that("entropy", {
+
+  #https://stackoverflow.com/questions/27254550/calculating-entropy
+  r_entropy = function(x, base = exp(1),  normalize= TRUE) {
+    if(normalize) x = x/sum(x)
+    -sum(x * log(x) / log(base))
+  }
+
+  expect_equal(pl$lit(1:3)$entropy(base=2)$to_r(),r_entropy(1:3,base=2))
+  expect_equal(
+    pl$lit(1:3)$entropy(base=2, normalize=FALSE)$to_r(),
+    r_entropy(1:3,base=2,normalize = FALSE)
+  )
+
+  #TODO contribute polars calculating entropy on utf8 returns NULL, should either raise error
+  pl$select(pl$lit(c("a","b","b","c","c","c"))$entropy(base=2))
+
+  pl$lit(c("a","a","a"))$entropy(base=2, normalize=FALSE)$to_r()
+})
+
+
+

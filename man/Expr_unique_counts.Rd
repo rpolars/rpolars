@@ -20,6 +20,6 @@ This method differs from \code{value_counts} in that it does not return the
 values, only the counts and might be faster
 }
 \examples{
-pl$DataFrame(iris)$select(pl$col("Species")$unique())
+pl$DataFrame(iris)$select(pl$col("Species")$unique_counts())
 }
 \keyword{Expr}

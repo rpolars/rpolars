@@ -933,6 +933,10 @@ impl Expr {
         self.0.clone().unique_counts().into()
     }
 
+    pub fn entropy(&self, base: f64, normalize: bool) -> Self {
+        self.0.clone().entropy(base, normalize).into()
+    }
+
     pub fn pow(&self, exponent: &Expr) -> Self {
         self.0.clone().pow(exponent.0.clone()).into()
     }
