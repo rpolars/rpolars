@@ -147,7 +147,8 @@ jobs:
         with:
           body: "Ignore me: I'm just a pre-release."
           prerelease: true
-          tag_name: ${{github.run_number}}
+          #tag_name: ${{github.run_number}}
+          #target_commitish:
           files: |
             ../rpolars_*
             ../rpolars.zip
