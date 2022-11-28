@@ -444,6 +444,8 @@ Series$to_r <- function() .Call(wrap__Series__to_r, self)
 
 Series$rename_mut <- function(name) invisible(.Call(wrap__Series__rename_mut, self, name))
 
+Series$set_sorted_mut <- function(reverse) .Call(wrap__Series__set_sorted_mut, self, reverse)
+
 Series$dtype <- function() .Call(wrap__Series__dtype, self)
 
 Series$name <- function() .Call(wrap__Series__name, self)

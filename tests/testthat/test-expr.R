@@ -2233,4 +2233,18 @@ test_that("cumulative_eval", {
 })
 
 
-
+test_that("set_sorted", {
+  df = pl$DataFrame(values =  c(3, 2, 1))
+  expect_identical(
+    df$select(pl$col("values")$max())$to_list()[[1L]],
+    3
+  )
+  expect_identical(
+    df$select(pl$col("values")$set_sorted()$max())$to_list()[[1L]],
+    1
+  )
+  expect_identical(
+    df$select(pl$col("values")$set_sorted(reverse=TRUE)$max())$to_list()[[1L]],
+    3
+  )
+})

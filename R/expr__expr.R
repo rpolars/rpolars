@@ -3747,3 +3747,24 @@ Expr_entropy  = function(base = base::exp(1), normalize = TRUE) {
 Expr_cumulative_eval = function(expr, min_periods = 1L, parallel = FALSE) {
   unwrap(.pr$Expr$cumulative_eval(self,expr, min_periods, parallel))
 }
+
+
+#' @description
+#' Flags the expression as 'sorted'.
+#' Enables downstream code to user fast paths for sorted arrays.
+#' @param
+#' @keywords
+#' @return
+#' @aliases
+#' @examples
+#'
+#' #this would leads to the wrong result because 3,2,1 is not sorted ascending
+#' df = pl$DataFrame(values =  c(3, 2, 1))
+#' df$select(pl$col("values")$set_sorted()$max())
+#'
+#' #and this is the correct result
+#' df = pl$DataFrame(values =  c(3, 2, 1))
+#' df$select(pl$col("values")$set_sorted(reverse = TRUE)$max())
+Expr_set_sorted = function(reverse = FALSE) {
+  self$map(\(s) .pr$Series$set_sorted_mut(s, reverse))
+}

@@ -171,6 +171,17 @@ impl Series {
         self.0.rename(name);
     }
 
+    fn set_sorted_mut(&self, reverse: bool) -> Self {
+        let mut out = self.0.clone();
+        use polars_core::series::IsSorted;
+        if reverse {
+            out.set_sorted(IsSorted::Descending);
+        } else {
+            out.set_sorted(IsSorted::Ascending)
+        }
+        out.into()
+    }
+
     //any other method or trait method in alphabetical order
 
     //skip arr, cat, dt namespace methods
