@@ -199,7 +199,41 @@ impl DataFrame {
 
         r_result_list(self.0.unnest(names).map(|s| DataFrame(s)))
     }
+    fn print_raw_arrow_pts(&self) {
+        for series in self.0.clone().iter() {
+            rprintln!("Series.name: {}", series.name());
+            for i_chunk in series.chunks().into_iter() {
+                let arrow_raw = expose_array_raw_ptrs(i_chunk.clone());
+                rprintln!(
+                    "\tArrowSchema:{} ArrowArray:{}",
+                    arrow_raw.0 as usize,
+                    arrow_raw.1 as usize
+                );
+            }
+        }
+    }
 }
+
+use arrow::ffi;
+use polars::prelude::{ArrayRef, ArrowField};
+use polars_core::frame::ArrowChunk;
+use polars_core::utils::arrow;
+
+/// Arrow array to Python.
+fn expose_array_raw_ptrs(array: ArrayRef) -> (*const ffi::ArrowSchema, *const ffi::ArrowArray) {
+    let schema = Box::new(ffi::export_field_to_c(&ArrowField::new(
+        "",
+        array.data_type().clone(),
+        true,
+    )));
+    let array = Box::new(ffi::export_array_to_c(array));
+
+    let schema_ptr: *const ffi::ArrowSchema = &*schema;
+    let array_ptr: *const ffi::ArrowArray = &*array;
+
+    (schema_ptr, array_ptr)
+}
+
 use crate::utils::wrappers::null_to_opt;
 impl DataFrame {
     fn to_list_result(&self) -> Result<Robj, pl::PolarsError> {
