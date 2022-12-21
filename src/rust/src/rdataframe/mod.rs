@@ -199,11 +199,13 @@ impl DataFrame {
 
         r_result_list(self.0.unnest(names).map(|s| DataFrame(s)))
     }
-    fn print_raw_arrow_pts(&self) {
+    fn print_raw_arrow_pts(&self) -> VecArrowArray {
+        let mut raw_arrow = Vec::new();
         for series in self.0.clone().iter() {
             rprintln!("Series.name: {}", series.name());
             for i_chunk in series.chunks().into_iter() {
                 let arrow_raw = expose_array_raw_ptrs(i_chunk.clone());
+                raw_arrow.push(arrow_raw.2);
                 rprintln!(
                     "\tArrowSchema:{} ArrowArray:{}",
                     arrow_raw.0 as usize,
@@ -211,6 +213,7 @@ impl DataFrame {
                 );
             }
         }
+        VecArrowArray(raw_arrow)
     }
 }
 
@@ -220,7 +223,13 @@ use polars_core::frame::ArrowChunk;
 use polars_core::utils::arrow;
 
 /// Arrow array to Python.
-fn expose_array_raw_ptrs(array: ArrayRef) -> (*const ffi::ArrowSchema, *const ffi::ArrowArray) {
+fn expose_array_raw_ptrs(
+    array: ArrayRef,
+) -> (
+    *const ffi::ArrowSchema,
+    *const ffi::ArrowArray,
+    Box<ffi::ArrowArray>,
+) {
     let schema = Box::new(ffi::export_field_to_c(&ArrowField::new(
         "",
         array.data_type().clone(),
@@ -231,7 +240,18 @@ fn expose_array_raw_ptrs(array: ArrayRef) -> (*const ffi::ArrowSchema, *const ff
     let schema_ptr: *const ffi::ArrowSchema = &*schema;
     let array_ptr: *const ffi::ArrowArray = &*array;
 
-    (schema_ptr, array_ptr)
+    (schema_ptr, array_ptr, array)
+}
+
+#[derive(Debug)]
+#[extendr]
+pub struct VecArrowArray(pub Vec<Box<ffi::ArrowArray>>);
+
+#[extendr]
+impl VecArrowArray {
+    pub fn print(&self) {
+        rprintln!("this is a ArrawArray VecBox: {:?}", self);
+    }
 }
 
 use crate::utils::wrappers::null_to_opt;
@@ -287,4 +307,5 @@ extendr_module! {
     use rlib;
     impl DataFrame;
     impl VecDataFrame;
+    impl VecArrowArray;
 }

@@ -72,7 +72,7 @@ DataFrame$to_struct <- function(name) .Call(wrap__DataFrame__to_struct, self, na
 
 DataFrame$unnest <- function(names) .Call(wrap__DataFrame__unnest, self, names)
 
-DataFrame$print_raw_arrow_pts <- function() invisible(.Call(wrap__DataFrame__print_raw_arrow_pts, self))
+DataFrame$print_raw_arrow_pts <- function() .Call(wrap__DataFrame__print_raw_arrow_pts, self)
 
 #' @export
 `$.DataFrame` <- function (self, name) { func <- DataFrame[[name]]; environment(func) <- environment(); func }
@@ -95,6 +95,16 @@ VecDataFrame$print <- function() invisible(.Call(wrap__VecDataFrame__print, self
 
 #' @export
 `[[.VecDataFrame` <- `$.VecDataFrame`
+
+VecArrowArray <- new.env(parent = emptyenv())
+
+VecArrowArray$print <- function() invisible(.Call(wrap__VecArrowArray__print, self))
+
+#' @export
+`$.VecArrowArray` <- function (self, name) { func <- VecArrowArray[[name]]; environment(func) <- environment(); func }
+
+#' @export
+`[[.VecArrowArray` <- `$.VecArrowArray`
 
 Expr <- new.env(parent = emptyenv())
 
