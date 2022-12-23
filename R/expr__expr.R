@@ -1306,15 +1306,6 @@ Expr_arg_max = "use_extendr_wrapper"
 
 
 
-#' Wrap column in list
-#' @description  Aggregate to list.
-#' @keywords Expr
-#' @return Expr
-#' @aliases list
-#' @name Expr_list
-#' @format a method
-Expr_list = "use_extendr_wrapper"
-
 
 
 #TODO contribute pypolars search_sorted behavior is under-documented, does multiple elements work?
@@ -3771,3 +3762,17 @@ Expr_set_sorted = function(reverse = FALSE) {
     s
   })
 }
+
+
+#' Wrap column in list
+#' @description  Aggregate to list.
+#' @keywords Expr
+#' @return Expr
+#' @aliases list
+#' @name Expr_list
+#' @details use to_struct to wrap a DataFrame
+#' @format a method
+#' @examples
+#' pl$select(pl$lit(1:4)$list(), pl$lit(c("a")))
+Expr_list = "use_extendr_wrapper"
+
