@@ -3799,3 +3799,4 @@ Expr_list = "use_extendr_wrapper"
 #'  )$with_column( pl$col("b")$cast(pl$Int64) *32L
 #'  )$select(pl$all()$shrink_dtype())
 Expr_shrink_dtype = "use_extendr_wrapper"
+
