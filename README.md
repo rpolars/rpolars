@@ -1,5 +1,17 @@
 # rpolars
 
+# [rpolars is moving under pola-rs umbrella and can in the future be found here](https://github.com/pola-rs/r-polars)
+
+
+
+## This repository is no longer active, see the link above
+
+
+
+
+
+
+
 Use awesome [polars](https://www.pola.rs/) DataFrame library from R!
 
 *rpolars is not completely translated yet - aim to finish March 2023*
