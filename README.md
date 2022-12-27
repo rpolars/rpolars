@@ -1,6 +1,6 @@
 # rpolars
 
-# [rpolars is moving under pola-rs umbrella and can in the future be found here](https://github.com/pola-rs/r-polars)
+# [rpolars is moving under the pola-rs umbrella and can in the future be found here](https://github.com/pola-rs/r-polars)
 
 
 
